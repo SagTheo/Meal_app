@@ -1,0 +1,1 @@
+This app is an attempt at building a full-stack application

@@ -1,0 +1,26 @@
+Functionnalities:
+
+--> Info for a given food
+    -> entering name of a food
+    -> entering quantity for that food
+    -> click on button : 
+            -displays calories for the given food and quantity
+            -displays amount of protein, carbs and fat or the given food and quantity
+
+--> Info for a meal (multiple entries of given foods)
+    -> entering name of foods
+    -> entering quantity for each food
+    -> click on button : 
+            -displays total amount of calories for the meal
+            -displays total amount of protein, fat and carbs for the meal
+
+--> List of foods already available
+    -> click on one item of the list :
+            -displays calories + protein, carbs and fat for that item
+
+--> Possibility to compose a meal from the list of foods available
+    -> once meal is composed : click on button :
+                                    -displays total amount of calories + protein, carbs and fat for the meal
+
+Technologies:
+    -React + Bootstrap + NodeJS + MySQL
