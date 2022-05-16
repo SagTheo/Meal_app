@@ -22,5 +22,18 @@ Functionnalities:
     -> once meal is composed : click on button :
                                     -displays total amount of calories + protein, carbs and fat for the meal
 
+--> Authentication system : if user has account, app will store its personally composed meals
+
+
+Database : one table for the foods
+                - id
+                - name
+                - calories
+                - protein
+                - carbohydrates
+                - fat
+           one table for the users
+           one table for the meals composed by users with account
+
 Technologies:
-    -React + Bootstrap + NodeJS + MySQL
+    -React + Bootstrap/CSS + NodeJS + MySQL + Firebase (authentication system)
