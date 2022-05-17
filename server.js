@@ -21,12 +21,24 @@ const db = mysql.createConnection({
 
 db.connect(function(err) {
     if (err) console.log(err)
-    
-    db.query('SELECT *  FROM foods', function(err, result, fields) {
-        if (err) console.log(err)
 
-        app.get('/', (req, res) => {
-            console.log('Connected to React')
+    app.get('/', (req, res) => {
+        console.log('Connected to React')
+
+        db.query('SELECT *  FROM foods LIMIT 5', function(err, result, fields) {
+            if (err) console.log(err)
+
+            res.json({data: result})
+        })
+        
+    })
+    
+    app.get('/:food', (req, res) => {
+        const food = req.params.food
+
+        db.query('SELECT * FROM foods WHERE name= ?', [food], function(err, result, fields) {
+            if (err) console.log(err)
+
             res.json({data: result})
         })
     })

@@ -23,6 +23,9 @@ Functionnalities:
                                     -displays total amount of calories + protein, carbs and fat for the meal
 
 --> Authentication system : if user has account, app will store its personally composed meals
+                - authentication with Firebase -> find a way to use user info sent back by 
+                                                  Firebase to then store users in MySQL 
+                                                  database
 
 
 Database : one table for the foods
