@@ -3,7 +3,6 @@ import Button from 'react-bootstrap/Button'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../css/FoodSearch.css'
 import FoodInfo from './FoodInfo'
-import { Link } from 'react-router-dom'
 
 const FoodSearch = () => {
     const [data, setData] = useState()
@@ -26,7 +25,6 @@ const FoodSearch = () => {
   
       fetch(`http://localhost:3001/${food}`)
         .then(res => res.json())
-        //data.data[0] because the response is an array with one object in it
         .then(data => {
           if (data.data.length === 0) {
             setFoodInfo('')
@@ -36,6 +34,7 @@ const FoodSearch = () => {
             setFoodInfo('')
             setMatches(data.data)
           } else {
+            //data.data[0] because the response is an array with one object in it
             setFoodInfo(data.data[0])
             setFoodSearch('')
           }
@@ -43,6 +42,7 @@ const FoodSearch = () => {
         .catch(err => console.log(err))
     }
   
+    //To retrieve a few items from the database when the component mounts
     useEffect(() => {
       fetch('http://localhost:3001/')
         .then(res => res.json())
@@ -51,11 +51,7 @@ const FoodSearch = () => {
     }, [])
   
     return (
-      <>
-        <div className='d-flex justify-content-end p-2 bg-secondary mb-3'>
-            <Link to="/signup" className="m-2 text-decoration-none foodSearch_link">Sign up</Link>
-            <Link to="/login" className="m-2 text-decoration-none foodSearch_link">Log in</Link>
-        </div>
+      <>      
         <div className='d-flex flex-column text-center w-25 m-auto'>
           <p className='mb-0'>Search a food</p>
           <input type='text' 
