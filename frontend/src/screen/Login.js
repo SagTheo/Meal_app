@@ -1,13 +1,15 @@
 import React, { useState } from 'react'
 import Button from 'react-bootstrap/Button'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [emailErr, setEmailErr] = useState('')
   const [passwordErr, setPasswordErr] = useState('')
+  const [loginError, setLoginError] = useState('')
   const emailRegex = new RegExp(/\w+@\w+.\w{2,3}/)
+  const navigate = useNavigate()
 
   const checkEmail = (email) => {
     if (email === '') {
@@ -40,13 +42,23 @@ const handleSubmit = (e) => {
        e.preventDefault() 
        return
     } else {
-       console.log(email, password) 
+       fetch('http://localhost:3001/login', { //Needs work
+           method: 'POST',
+           headers: { 'Content-Type' : 'application/json' },
+           body: JSON.stringify({
+               email: email,
+               password: password
+           })
+           .then(res => res.json()) 
+           .then(data => data.ok ? navigate('/dashboard') : setLoginError('Failed to log in'))
+       }) 
     }
   }
 
   return (
     <div className='w-25 border border-dark rounded text-center m-auto mt-5 px-4 py-3'>
         <h1>Log in</h1>
+        <p>{loginError}</p>
         <form>
             <div className="mb-3">
                 <label>

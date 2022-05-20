@@ -74,6 +74,18 @@ db.connect(function(err) {
         )
     })
 
+    app.post('/login', (req, res) => {
+        db.query(
+            'SELECT id FROM users WHERE email=? AND password=?',
+            [req.body.email, req.body.password],
+            function(err, result, fields) {
+                if (err) throw err
+
+                res.json({ok: result}) //Needs work
+            }
+        )
+    })
+
     app.listen(port, console.log(`Server started on port ${port}`))
 }) 
 
