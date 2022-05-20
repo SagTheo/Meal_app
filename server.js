@@ -58,7 +58,7 @@ db.connect(function(err) {
                 res.json({token: result.insertId})
             }
         )
-    })
+    }) 
 
     app.get('/dashboard/:token', (req, res) => {
         const token = req.params.token

@@ -60,20 +60,20 @@ const Signup = () => {
        return
     } else {
         e.preventDefault()
-       fetch('http://localhost:3001/signup', {
+        fetch('http://localhost:3001/signup', {
            method: "POST",
            headers: { 'Content-Type' : 'application/json' },
            body: JSON.stringify({
                email: email,
                password: password
            })
-       })
-       .then(res => res.json())
-       .then(data => {
+        })
+        .then(res => res.json())
+        .then(data => {
            localStorage.setItem('userToken', data.token)
-           navigate('/dashboard')
-       })
-       .catch(err => console.log(err)) 
+           navigate('/dashboard')  
+        })
+        .catch(err => console.log(err)) 
     }
   }
   

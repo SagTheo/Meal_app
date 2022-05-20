@@ -18,7 +18,8 @@ Functionnalities:
                                     
                                     OR
                 
-                -own authentication system
+                -own authentication system 
+                        --> Use of React Query/React Context API to manage state of user (logged in/logged out) ?
 
                 -Functionalities for logged in users only:
 
@@ -40,7 +41,10 @@ Database : one table for the foods
                 - calories
                 - protein
                 - carbohydrates
+                - sugar
                 - fat
+                - saturatedFat
+                - fiber
            one table for the users
            one table for the meals composed by users with account
 
