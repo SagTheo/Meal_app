@@ -42,23 +42,36 @@ const handleSubmit = (e) => {
        e.preventDefault() 
        return
     } else {
-       fetch('http://localhost:3001/login', { //Needs work
+        e.preventDefault()
+       fetch('http://localhost:3001/login', { 
            method: 'POST',
            headers: { 'Content-Type' : 'application/json' },
            body: JSON.stringify({
                email: email,
                password: password
            })
-           .then(res => res.json()) 
-           .then(data => data.ok ? navigate('/dashboard') : setLoginError('Failed to log in'))
-       }) 
+        })
+        .then(res => res.json()) 
+        .then(data => {
+            if (data.data.length === 0) {
+                setLoginError('Failed to log in')
+            } else {
+                setLoginError('')
+                localStorage.setItem('userToken', data.data[0].id)
+                navigate('/dashboard')
+            }
+        }) 
     }
   }
 
   return (
     <div className='w-25 border border-dark rounded text-center m-auto mt-5 px-4 py-3'>
         <h1>Log in</h1>
-        <p>{loginError}</p>
+        <p className='text-danger bg-danger rounded w-75 m-auto mb-1'
+           style={{'--bs-bg-opacity': .5}}
+        >
+            {loginError}
+        </p>
         <form>
             <div className="mb-3">
                 <label>

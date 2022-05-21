@@ -27,8 +27,6 @@ db.connect(function(err) {
     if (err) throw err
 
     app.get('/', (req, res) => {
-        console.log('Connected to React')
-
         db.query('SELECT *  FROM foods LIMIT 5', function(err, result, fields) {
             if (err) throw err
 
@@ -81,7 +79,7 @@ db.connect(function(err) {
             function(err, result, fields) {
                 if (err) throw err
 
-                res.json({ok: result}) //Needs work
+                res.json({data: result})
             }
         )
     })
