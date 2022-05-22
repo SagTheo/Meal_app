@@ -1,0 +1,5 @@
+Restrict access to /new-meal
+Have navbar conditionally rendered depending on whether user is logged in or not
+Create functionality to compose a meal
+Create table in database to store meals created by user
+Add to UserNavbar My meals tab, where user can view meals already created

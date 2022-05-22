@@ -5,6 +5,7 @@ import Signup from './screen/Signup';
 import UserDashboard from './screen/UserDashboard';
 import NotFound from './screen/NotFound';
 import Protected from './components/Protected';
+import NewMeal from './screen/NewMeal'
 
 function App() {
   const token = localStorage.getItem('userToken')
@@ -20,6 +21,7 @@ function App() {
         </Protected>
       } 
       />
+      <Route path="/new-meal" element={<NewMeal />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   )

@@ -34,6 +34,10 @@ Functionnalities:
                         -> once meal is composed : click on button :
                                                         -displays total amount of calories + protein, carbs and fat for the meal
 
+                    --> Have home page in the UserNavbar (
+                            when logged in user goes to home page, should display 
+                            FoodSearchPublic but with the UserNavbar
+                        )
 
 Database : one table for the foods
                 - id
