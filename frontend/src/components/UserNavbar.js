@@ -1,20 +1,21 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../css/FoodSearch.css'
+import { UserContext } from '../context/user-context';
 
 const UserNavbar = () => {
-    const userToken = localStorage.getItem('userToken')
+    const token = useContext(UserContext)
     const [userEmail, setUserEmail] = useState()
     const navigate = useNavigate()
   
     const logout = () => {
-      localStorage.removeItem('userToken')
+      token.changeUserState(null)
       navigate('/')
     }
   
     useEffect(() => {
-      fetch(`http://localhost:3001/home/${userToken}`)
+      fetch(`http://localhost:3001/home/${token.userState}`)
           .then(res => res.json())
           .then(data => setUserEmail(data.email[0].email))
           .catch(err => console.log(err))

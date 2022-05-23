@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import Button from 'react-bootstrap/Button'
 import { Link, useNavigate } from 'react-router-dom'
+import { UserContext } from '../context/user-context';
 
 const Login = () => {
+  const token = useContext(UserContext)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [emailErr, setEmailErr] = useState('')
@@ -57,7 +59,7 @@ const handleSubmit = (e) => {
                 setLoginError('Failed to log in')
             } else {
                 setLoginError('')
-                localStorage.setItem('userToken', data.data[0].id)
+                token.changeUserState(data.data[0].id)
                 navigate('/home')
             }
         }) 

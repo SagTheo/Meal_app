@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import Button from 'react-bootstrap/Button'
 import { Link, useNavigate } from 'react-router-dom'
+import { UserContext } from '../context/user-context';
 
 const Signup = () => {
+  const token = useContext(UserContext)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [passwordConf, setPasswordConf] = useState('')
@@ -54,26 +56,31 @@ const Signup = () => {
 
 
 
-  const handleSubmit = (e) => {
+  async function handleSubmit(e) {
     if (!checkEmail(email) || !checkPassword(password) || !checkPasswordConf(passwordConf, password)) {
        e.preventDefault() 
        return
     } else {
         e.preventDefault()
-        fetch('http://localhost:3001/signup', {
-           method: "POST",
-           headers: { 'Content-Type' : 'application/json' },
-           body: JSON.stringify({
-               email: email,
-               password: password
-           })
-        })
-        .then(res => res.json())
-        .then(data => {
-           localStorage.setItem('userToken', data.token)
-           navigate('/home')  
-        })
-        .catch(err => console.log(err)) 
+
+        try {
+            const data = await fetch('http://localhost:3001/signup', {
+                method: "POST",
+                headers: { 'Content-Type' : 'application/json' },
+                body: JSON.stringify({
+                    email: email,
+                    password: password
+                })
+            })
+
+            const id = await data.json()
+
+            token.changeUserState(id.token)
+
+            navigate('/home')
+        } catch (error) {
+            console.log(error)
+        }
     }
   }
   
