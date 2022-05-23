@@ -58,7 +58,7 @@ db.connect(function(err) {
         )
     }) 
 
-    app.get('/dashboard/:token', (req, res) => {
+    app.get('/home/:token', (req, res) => {
         const token = req.params.token
 
         db.query(

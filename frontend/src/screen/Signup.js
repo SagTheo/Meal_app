@@ -71,7 +71,7 @@ const Signup = () => {
         .then(res => res.json())
         .then(data => {
            localStorage.setItem('userToken', data.token)
-           navigate('/dashboard')  
+           navigate('/home')  
         })
         .catch(err => console.log(err)) 
     }
