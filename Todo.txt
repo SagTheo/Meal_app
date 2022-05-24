@@ -1,4 +1,2 @@
-! Fix authentication system !
-
 Create functionality to compose a meal
 Create table in database to store meals created by user

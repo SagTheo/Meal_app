@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Button from 'react-bootstrap/Button'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../css/FoodSearch.css'
-import UserNavbar from '../components/UserNavbar'
+import Navbar from '../components/Navbar'
 
 const NewMeal = () => {
     const [foodSearch, setFoodSearch] = useState('')
@@ -32,7 +32,7 @@ const NewMeal = () => {
   
     return (
       <>    
-        <UserNavbar />  
+        <Navbar />  
         <div className='d-flex flex-column text-center w-25 m-auto'>
           <p className='mb-0'>Search a food</p>
           <input type='text' 

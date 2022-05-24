@@ -1,30 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../css/FoodSearch.css'
 
-const UserNavbar = () => {
-    const userToken = localStorage.getItem('userToken')
-    const [userEmail, setUserEmail] = useState()
+const UserNavbar = ({ userEmail }) => {
     const navigate = useNavigate()
   
     const logout = () => {
       localStorage.removeItem('userToken')
       navigate('/')
     }
-  
-    useEffect(() => {
-      fetch(`http://localhost:3001/checkUser/${userToken}`)
-          .then(res => res.json())
-          .then(data => {
-            if (data.response === null) {
-              navigate('/')
-            } else {
-              setUserEmail(data.response.email)
-            }
-          })
-          .catch(err => console.log(err))
-    }, [])
 
   return (
     <div className='d-flex justify-content-end p-2 bg-secondary mb-3'>

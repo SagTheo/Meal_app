@@ -1,10 +1,10 @@
 import React from 'react'
-import UserNavbar from '../components/UserNavbar'
+import Navbar from '../components/Navbar'
 
 const MyMeals = () => {
   return (
     <div>
-        <UserNavbar />
+        <Navbar />
         Here are your meals
     </div>
   )

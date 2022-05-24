@@ -4,13 +4,10 @@ import Login from './screen/Login';
 import Signup from './screen/Signup';
 import UserDashboard from './screen/UserDashboard';
 import NotFound from './screen/NotFound';
-// import Protected from './components/Protected';
 import NewMeal from './screen/NewMeal'
 import MyMeals from './screen/MyMeals'
 
 function App() {
-  // const token = localStorage.getItem('userToken')
-
   return (
     <Routes>
       <Route path="/" element={<FoodSearchPublic />} />

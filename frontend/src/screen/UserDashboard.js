@@ -1,11 +1,11 @@
 import React from 'react'
 import FoodSearch from '../components/FoodSearch'
-import UserNavbar from '../components/UserNavbar'
+import Navbar from '../components/Navbar'
 
 const UserDashboard = () => {
   return (
     <>
-        <UserNavbar />
+        <Navbar />
         <FoodSearch />
     </>
   )
