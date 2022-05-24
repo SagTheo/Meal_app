@@ -1,2 +1,13 @@
 Create functionality to compose a meal
+    --> User searches for a food
+    --> Gets all the possible matches
+    --> Clicks on the desired result
+    --> Adds that food to a list that appears on the left of the screen
+    --> Each item of the list has a quantity field associated with it
+    --> Each item of the list can be removed from it
+    --> Details of the meal appear on the right of the screen as user adds more foods
+        to it (amount of calories, protein, fat etc)
+    --> Button at the bottom of the list that allows user to save the meal (which will 
+        be found on the 'My meals' page)
+
 Create table in database to store meals created by user
