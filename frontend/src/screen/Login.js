@@ -53,11 +53,11 @@ const handleSubmit = (e) => {
         })
         .then(res => res.json()) 
         .then(data => {
-            if (data.data.length === 0) {
+            if (data.response === null) {
                 setLoginError('Failed to log in')
             } else {
                 setLoginError('')
-                localStorage.setItem('userToken', JSON.stringify(data.data[0].id))
+                localStorage.setItem('userToken', JSON.stringify(data.response.id))
                 navigate('/home')
             }
         }) 

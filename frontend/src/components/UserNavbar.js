@@ -14,9 +14,15 @@ const UserNavbar = () => {
     }
   
     useEffect(() => {
-      fetch(`http://localhost:3001/home/${userToken}`)
+      fetch(`http://localhost:3001/checkUser/${userToken}`)
           .then(res => res.json())
-          .then(data => setUserEmail(data.email[0].email))
+          .then(data => {
+            if (data.response === null) {
+              navigate('/')
+            } else {
+              setUserEmail(data.response.email)
+            }
+          })
           .catch(err => console.log(err))
     }, [])
 

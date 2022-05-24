@@ -20,8 +20,16 @@ Functionnalities:
                 
                 -own authentication system 
                         --> Use of React Query/React Context API to manage state of user (logged in/logged out) ?
-                                --> React Context API loses modifications made to state on 
+                                --> --UNRELIABLE-- React Context API loses modifications made to state on 
                                     page reloads so can't be used
+                            
+                            --> Other system -- WORKS --: user signs up, server sends a token back
+                                              client stores that token
+                                              anytime user tries to access a protected route, client will 
+                                              send token along to the server
+                                              Server verifies that token, if correct, grants access, if not, 
+                                              response will redirect user to log in or public page
+                                              
                 -Functionalities for logged in users only:
 
                     --> Info for a meal (multiple entries of given foods)

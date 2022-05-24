@@ -119,7 +119,7 @@ const Signup = () => {
                     className="mb-3"
                     onClick={(e) => handleSubmit(e)}
             >
-                Login
+                Sign up
             </Button>
         </form>
         <p>Already have an account ? <Link to="/login">Log in</Link></p>

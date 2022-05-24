@@ -58,7 +58,7 @@ db.connect(function(err) {
         )
     }) 
 
-    app.get('/home/:token', (req, res) => {
+    app.get('/checkUser/:token', (req, res) => {
         const token = req.params.token
 
         db.query(
@@ -66,8 +66,12 @@ db.connect(function(err) {
             [token],
             function(err, result, fields) {
                 if (err) throw err
-
-                res.json({email: result})
+                
+                if (result.length === 0) {
+                    res.json({response: null})
+                } else {
+                    res.json({response: result[0]})
+                }
             }
         )
     })
@@ -79,7 +83,11 @@ db.connect(function(err) {
             function(err, result, fields) {
                 if (err) throw err
 
-                res.json({data: result})
+                if (result.length === 0) {
+                    res.json({response: null})
+                } else {
+                    res.json({response: result[0]})
+                }
             }
         )
     })
