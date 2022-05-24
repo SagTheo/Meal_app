@@ -7,39 +7,40 @@ import NotFound from './screen/NotFound';
 import Protected from './components/Protected';
 import NewMeal from './screen/NewMeal'
 import MyMeals from './screen/MyMeals'
-import { UserProvider, UserContext } from './context/user-context';
-import { useContext } from 'react'
+import { useEffect, useState } from 'react';
 
 function App() {
-  const token = useContext(UserContext)
+  const [token, setToken] = useState(null)
+
+  useEffect(() => {
+    setToken(localStorage.getItem('userToken'))
+  }, [])
 
   return (
-    <UserProvider>
-      <Routes>
-        <Route path="/" element={<FoodSearchPublic />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/home" element={
-          <Protected token={token ?? null}>
-            <UserDashboard />
-          </Protected>
-        } 
-        />
-        <Route path="/new-meal" element= {
-          <Protected token={token ?? null}>
-            <NewMeal />
-          </Protected>
-        } 
-        />
-        <Route path="/my-meals" element= {
-          <Protected token={token ?? null}>
-            <MyMeals />
-          </Protected>
-        } 
-        />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </UserProvider>
+    <Routes>
+      <Route path="/" element={<FoodSearchPublic />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<Signup />} />
+      <Route path="/home" element={
+        <Protected token={token}>
+          <UserDashboard />
+        </Protected>
+      } 
+      />
+      <Route path="/new-meal" element= {
+        <Protected token={token}>
+          <NewMeal />
+        </Protected>
+      } 
+      />
+      <Route path="/my-meals" element= {
+        <Protected token={token}>
+          <MyMeals />
+        </Protected>
+      } 
+      />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
   )
 }
 
