@@ -57,7 +57,7 @@ const handleSubmit = (e) => {
                 setLoginError('Failed to log in')
             } else {
                 setLoginError('')
-                localStorage.setItem('userToken', data.data[0].id)
+                localStorage.setItem('userToken', JSON.stringify(data.data[0].id))
                 navigate('/home')
             }
         }) 

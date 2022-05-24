@@ -20,7 +20,8 @@ Functionnalities:
                 
                 -own authentication system 
                         --> Use of React Query/React Context API to manage state of user (logged in/logged out) ?
-
+                                --> React Context API loses modifications made to state on 
+                                    page reloads so can't be used
                 -Functionalities for logged in users only:
 
                     --> Info for a meal (multiple entries of given foods)

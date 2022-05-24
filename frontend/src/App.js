@@ -7,14 +7,9 @@ import NotFound from './screen/NotFound';
 import Protected from './components/Protected';
 import NewMeal from './screen/NewMeal'
 import MyMeals from './screen/MyMeals'
-import { useEffect, useState } from 'react';
 
 function App() {
-  const [token, setToken] = useState(null)
-
-  useEffect(() => {
-    setToken(localStorage.getItem('userToken'))
-  }, [])
+  // const token = localStorage.getItem('userToken')
 
   return (
     <Routes>
@@ -22,19 +17,19 @@ function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/home" element={
-        <Protected token={token}>
+        <Protected token={localStorage.getItem('userToken')}>
           <UserDashboard />
         </Protected>
       } 
       />
       <Route path="/new-meal" element= {
-        <Protected token={token}>
+        <Protected token={localStorage.getItem('userToken')}>
           <NewMeal />
         </Protected>
       } 
       />
       <Route path="/my-meals" element= {
-        <Protected token={token}>
+        <Protected token={localStorage.getItem('userToken')}>
           <MyMeals />
         </Protected>
       } 

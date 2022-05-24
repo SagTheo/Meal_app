@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import '../css/FoodSearch.css'
 import UserNavbar from '../components/UserNavbar'
 
-const NewMeal = () => {const [foodInfo, setFoodInfo] = useState()
+const NewMeal = () => {
     const [foodSearch, setFoodSearch] = useState('')
     const [matches, setMatches] = useState()
     const [invalidSearch, setInvalidSearch] = useState('')

@@ -70,7 +70,7 @@ const Signup = () => {
         })
         .then(res => res.json())
         .then(data => {
-           localStorage.setItem('userToken', data.token)
+           localStorage.setItem('userToken', JSON.stringify(data.token))
            navigate('/home')  
         })
         .catch(err => console.log(err)) 
