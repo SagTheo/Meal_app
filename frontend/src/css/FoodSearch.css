@@ -13,3 +13,7 @@
 .foodSearch_link:hover {
     color: rgba(255, 255, 255, 0.652);
 }
+
+.trashcan:hover {
+    cursor: pointer;
+}

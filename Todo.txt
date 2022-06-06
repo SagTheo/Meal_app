@@ -5,9 +5,10 @@ Create functionality to compose a meal
     --> Adds that food to a list that appears on the left of the screen | done
     --> Each item of the list has a quantity field associated with it | done
     --> Each item of the list can be removed from it | done
-    --> Details of the meal appear on the right of the screen as user adds more foods
+    Issue#1 --> Details of the meal appear on the right of the screen as user adds more foods
         to it (amount of calories, protein, fat etc)
     --> Button at the bottom of the list that allows user to save the meal (which will 
         be found on the 'My meals' page)
 
 Create table in database to store meals created by user
+        --> will need at least one foreign key to reference user who created meal from table 'users' 
