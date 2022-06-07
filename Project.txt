@@ -31,17 +31,14 @@ Functionnalities:
                                               response will redirect user to log in or public page
                                               
                 -Functionalities for logged in users only:
-
-                    --> Info for a meal (multiple entries of given foods)
-                        -> entering name of foods
-                        -> entering quantity for each food
-                        -> click on button : 
-                                -displays total amount of calories for the meal
-                                -displays total amount of protein, fat and carbs for the meal
                     
                     --> Possibility to compose a meal from the list of foods available
                         -> once meal is composed : click on button :
                                                         -displays total amount of calories + protein, carbs and fat for the meal
+                    
+                    --> Possibility to save a composed meal and find it in My meals page
+
+                    --> Possibility to remove composed meal from list of saved meals
 
                     --> Have home page in the UserNavbar (
                             when logged in user goes to home page, should display 
@@ -62,4 +59,4 @@ Database : one table for the foods
            one table for the meals composed by users with account
 
 Technologies:
-    -React + Bootstrap/CSS + NodeJS + MySQL + Firebase (authentication system)
+    -React + Bootstrap/CSS + NodeJS + MySQL + Firebase(authentication system)/Own system

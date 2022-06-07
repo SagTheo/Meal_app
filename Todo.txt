@@ -7,8 +7,24 @@ Create functionality to compose a meal
     --> Each item of the list can be removed from it | done
     Issue#1 --> Details of the meal appear on the right of the screen as user adds more foods
         to it (amount of calories, protein, fat etc)
-    --> Button at the bottom of the list that allows user to save the meal (which will 
+        --> Need to find a way to allow user to change the quantity of each food individually,
+            and details of the meal on the right of the screen should be updated accordingly
+            
+    Issue#2--> Button at the bottom of the list that allows user to save the meal (which will 
         be found on the 'My meals' page)
+        -> Modal should be displayed to ask for confirmation
+        -> If user cancels, modal should close and user will still be on /new-meal page
+        -> If user confirms, meal should be saved to database, and user redirected to /my-meals
 
-Create table in database to store meals created by user
-        --> will need at least one foreign key to reference user who created meal from table 'users' 
+        Create table in database to store meals created by user
+            --> 2 tables :
+                -'meal_details': where each tuple stores an individual food(foreign key to 'foods')
+                and quantity for that food + id that references 'meal_user'
+                        --> this way, no need to store details of each food again: 
+                            with the quantity stored, calculations will be made again 
+                            when user goes to 'my-meals' 
+
+                -'meal_user': where each tuple stores an id for the meal + an id that references user 
+                composed the meal(foreign key to 'users')
+
+! Think about environment variables for database credentials ! 

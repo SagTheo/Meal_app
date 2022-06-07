@@ -38,7 +38,7 @@ db.connect(function(err) {
     app.get('/:food', (req, res) => {
         const food = req.params.food
         
-        //CONCAT() function to search for possible matches in the databases given the user input
+        //CONCAT() function to search for possible matches in the database given the user input
         db.query("SELECT * FROM foods WHERE name LIKE CONCAT('%', ?, '%')", [food], function(err, result, fields) {
             if (err) throw err
 

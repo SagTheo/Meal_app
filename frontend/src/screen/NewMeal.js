@@ -9,15 +9,13 @@ const NewMeal = () => {
     const [matches, setMatches] = useState()
     const [invalidSearch, setInvalidSearch] = useState('')
     const [meal, setMeal] = useState([])
-    const [totalNutriValues, setTotalNutriValues] = useState({
-      calories: 0,
-      protein: 0,
-      carbs: 0,
-      sugar: 0,
-      fat: 0,
-      saturatedFat: 0,
-      fiber: 0
-    })
+    const [calories, setCalories] = useState(0)
+    const [protein, setProtein] = useState(0)
+    const [carbs, setCarbs] = useState(0)
+    const [sugar, setSugar] = useState(0)
+    const [fat, setFat] = useState(0)
+    const [saturatedFat, setSaturatedFat] = useState(0)
+    const [fiber, setFiber] = useState(0)
   
   
     const getFood = (food) => {
@@ -40,22 +38,48 @@ const NewMeal = () => {
         .catch(err => console.log(err))
     }
 
+    //Adds details of a food to array 'meal', so it can be added to meal list
     const addToMeal = (food) => {
       setMeal([...meal, {...food, quantity: 100}])
     }
 
+    //Removes food from meal list 
     const removeFromMeal = (food) => {
       setMeal(meal.filter(meal => meal.id !== food.id))
     }
 
     //Calculates the total amount of 'value' for the meal
     const total = (array) => {
-      const values = ['calories', 'protein', 'carbs', 'sugar', 'fat', 'saturateFat', 'fiber']
+      const values = ['calories', 'protein', 'carbs', 'sugar', 'fat', 'saturatedFat', 'fiber']
 
       values.forEach(value => {
-        setTotalNutriValues({
-          ...totalNutriValues, 
-          totalNutriValues[value]: array.reduce((acc, curr) => acc + (curr.quantity / 100 * JSON.parse(curr[value])), 0)})
+        const current = array.reduce((acc, curr) => acc + (curr.quantity / 100 * JSON.parse(curr[value])), 0)
+
+        switch (value) {
+          case 'calories':
+            setCalories(Math.floor(current * 10) / 10)
+            break
+          case 'protein':
+            setProtein(Math.floor(current * 10) / 10)
+            break
+          case 'carbs':
+            setCarbs(Math.floor(current * 10) / 10)
+            break
+          case 'sugar':
+            setSugar(Math.floor(current * 10) / 10)
+            break
+          case 'fat':
+            setFat(Math.floor(current * 10) / 10)
+            break
+          case 'saturatedFat':
+            setSaturatedFat(Math.floor(current * 10) / 10)
+            break
+          case 'fiber':
+            setFiber(Math.floor(current * 10) / 10)
+            break
+          default:
+            console.log('Error in the switch case')
+        }
       })
     }
   
@@ -79,15 +103,21 @@ const NewMeal = () => {
         
         <div className='d-flex justify-content-between'>
           <div className='p-1 w-25'>
+            <p>Once you have added a food to your meal (or removed one), and the quantity for it
+              (by default 100grams), click on Update meal to see the total 
+              nutritional values for that meal.
+              Once you are happy with your meal, click on Save meal
+            </p>
             {
               meal.length > 0 ?
                   meal.map(item => {
                     return (
-                      <div key={item.id} className='d-flex mb-1 justify-content-between'>
-                        <p>{item.name[0].toUpperCase() + item.name.slice(1)}</p>
+                      <div key={item.id} className='d-flex mb-1 justify-content-between align-items-center'>
+                        <p className='mb-1'>{item.name[0].toUpperCase() + item.name.slice(1)}</p>
                         <input type='text' 
                                placeholder='Quantity' 
-                               className='ms-1 w-50 h-25 p-1' 
+                               className='ms-1 w-50 h-25 p-1'
+                               //Sets the quantity of the food 
                                onChange={(e) => item.quantity = e.target.value}
                         />
                         <svg xmlns="http://www.w3.org/2000/svg" 
@@ -107,10 +137,14 @@ const NewMeal = () => {
                 :
                 null
             }
-            <Button className='mt-1' disabled>
+            {/* Saves meal composed by user to database */}
+            <Button className='mt-1'>
               Save meal
             </Button>
-            <Button className='mt-1' onClick={() => total(meal)}>
+            {/* Updates the nutritional values for the meal depending on quantity entered 
+                for each food composing the meal
+            */}
+            <Button className='mt-1 ms-1' onClick={() => total(meal)}>
               Update meal
             </Button>
           </div>
@@ -138,13 +172,13 @@ const NewMeal = () => {
           <div className='p-1 w-25'>
             <p>Nutritional values for your meal</p>
             <ul>
-              <li>Calories: {totalNutriValues.calories} grams</li>
-              <li>Protein: {totalNutriValues.protein} grams</li>
-              <li>Carbs: {totalNutriValues.carbs} grams</li>
-              <li>Sugar: {totalNutriValues.sugar} grams</li>
-              <li>Fat: {totalNutriValues.fat} grams</li>
-              <li>Saturated fat: {totalNutriValues.saturatedFat} grams</li>
-              <li>Fiber: {totalNutriValues.fiber} grams</li>
+              <li>Calories: {calories} kcal</li>
+              <li>Protein: {protein} grams</li>
+              <li>Carbs: {carbs} grams</li>
+              <li>Sugar: {sugar} grams</li>
+              <li>Fat: {fat} grams</li>
+              <li>Saturated fat: {saturatedFat} grams</li>
+              <li>Fiber: {fiber} grams</li>
             </ul>
           </div>
         </div> 
