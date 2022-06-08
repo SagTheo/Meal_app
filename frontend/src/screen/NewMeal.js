@@ -1,5 +1,7 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
+import Modal from 'react-bootstrap/Modal'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../css/FoodSearch.css'
 import Navbar from '../components/Navbar'
@@ -16,6 +18,10 @@ const NewMeal = () => {
     const [fat, setFat] = useState(0)
     const [saturatedFat, setSaturatedFat] = useState(0)
     const [fiber, setFiber] = useState(0)
+
+    // For the modal
+    const [show, setShow] = useState(false)
+    const navigate = useNavigate()
   
   
     const getFood = (food) => {
@@ -40,7 +46,7 @@ const NewMeal = () => {
 
     //Adds details of a food to array 'meal', so it can be added to meal list
     const addToMeal = (food) => {
-      setMeal([...meal, {...food, quantity: 100}])
+      setMeal([...meal, {...food, quantity: null}])
     }
 
     //Removes food from meal list 
@@ -102,9 +108,10 @@ const NewMeal = () => {
         </div>
         
         <div className='d-flex justify-content-between'>
+          {/* Meal list */}
           <div className='p-1 w-25'>
-            <p>Once you have added a food to your meal (or removed one), and the quantity for it
-              (by default 100grams), click on Update meal to see the total 
+            <p>Once you have added a food to your meal (or removed one), and the quantity for it, 
+              click on Update meal to see the total 
               nutritional values for that meal.
               Once you are happy with your meal, click on Save meal
             </p>
@@ -138,7 +145,7 @@ const NewMeal = () => {
                 null
             }
             {/* Saves meal composed by user to database */}
-            <Button className='mt-1'>
+            <Button className='mt-1' onClick={() => setShow(true)}>
               Save meal
             </Button>
             {/* Updates the nutritional values for the meal depending on quantity entered 
@@ -147,6 +154,8 @@ const NewMeal = () => {
             <Button className='mt-1 ms-1' onClick={() => total(meal)}>
               Update meal
             </Button>
+          
+          {/* Food search results */}
           </div>
             {
                 matches ?
@@ -169,6 +178,9 @@ const NewMeal = () => {
                   //To avoid getting an error
                   <p>{invalidSearch}</p>
             }
+
+
+          {/* Nutritional values of the meal */}
           <div className='p-1 w-25'>
             <p>Nutritional values for your meal</p>
             <ul>
@@ -182,8 +194,27 @@ const NewMeal = () => {
             </ul>
           </div>
         </div> 
+
+        {/* Confirmation modal */}
+        <Modal
+          show={show}
+          backdrop="static"
+          keyboard={false}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Modal title</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            Are you sure you want to save this meal ?
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={() => setShow(false)}>
+              No
+            </Button>
+            <Button variant="primary" onClick={() => navigate('/my-meals')}>Yes</Button>
+          </Modal.Footer>
+        </Modal>
       </>
-      
     );
 }
 

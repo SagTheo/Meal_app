@@ -12,7 +12,9 @@ Create functionality to compose a meal
             
     Issue#2--> Button at the bottom of the list that allows user to save the meal (which will 
         be found on the 'My meals' page)
-        -> Modal should be displayed to ask for confirmation
+        -> If no food entered for the meal, error message should appear to let user 
+            know that they have to enter at least one food
+        -> ELse, Modal should be displayed to ask for confirmation
         -> If user cancels, modal should close and user will still be on /new-meal page
         -> If user confirms, meal should be saved to database, and user redirected to /my-meals
 
