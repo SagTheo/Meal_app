@@ -29,4 +29,4 @@ Create functionality to compose a meal
 
 ! Think about environment variables for database credentials ! | done
 
-Work on FoodSearchPublic and UserDashboard components -> redundancy that could possibly be avoided
+Work on FoodSearchPublic and UserDashboard components -> redundancy that could possibly be avoided | done

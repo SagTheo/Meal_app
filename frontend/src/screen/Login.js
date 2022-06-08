@@ -58,7 +58,7 @@ const handleSubmit = (e) => {
             } else {
                 setLoginError('')
                 localStorage.setItem('userToken', JSON.stringify(data.response.id))
-                navigate('/home')
+                navigate('/')
             }
         }) 
     }

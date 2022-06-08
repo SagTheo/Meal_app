@@ -14,7 +14,7 @@ const UserNavbar = ({ userEmail }) => {
   return (
     <div className='d-flex justify-content-end p-2 bg-secondary mb-3'>
         <p className='me-2 my-2 text-info'>Signed in as {userEmail}</p>
-        <Link to="/home"
+        <Link to="/"
               className="m-2 text-decoration-none foodSearch_link"
         >
           Home

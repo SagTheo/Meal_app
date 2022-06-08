@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../css/FoodSearch.css'
 import FoodInfo from './FoodInfo'
-
+ 
 const FoodSearch = () => {
     const [data, setData] = useState()
     const [foodInfo, setFoodInfo] = useState()
