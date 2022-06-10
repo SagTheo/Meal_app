@@ -95,6 +95,12 @@ db.connect(function(err) {
         )
     })
 
+    app.post('/saveMeal', (req, res) => {
+        req.body.mealFoods.forEach(food => {
+            console.log(food)
+        })
+    })
+
     app.listen(port, console.log(`Server started on port ${port}`))
 }) 
 

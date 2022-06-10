@@ -88,6 +88,34 @@ const NewMeal = () => {
         }
       })
     }
+
+    const saveMeal = () => {
+      fetch('http://localhost:3001/saveMeal', {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          userId: localStorage.getItem('userToken'),
+          mealFoods: meal,
+          calories: calories,
+          protein: protein, 
+          carbs: carbs,
+          sugar: sugar,
+          fat: fat,
+          saturatedFat: saturatedFat,
+          fiber: fiber
+        })
+      })
+        .then(res => res.json())
+        .then(response => {
+          if (response === 'OK') {
+            navigate('/my-meals')
+          } else {
+            console.log('Couldn\'t save meal')
+          }
+        })
+        .catch(err => console.log(err))
+      
+    }
   
     return (
       <>    
@@ -211,7 +239,7 @@ const NewMeal = () => {
             <Button variant="secondary" onClick={() => setShow(false)}>
               No
             </Button>
-            <Button variant="primary" onClick={() => navigate('/my-meals')}>Yes</Button>
+            <Button variant="primary" onClick={() => saveMeal()}>Yes</Button>
           </Modal.Footer>
         </Modal>
       </>
