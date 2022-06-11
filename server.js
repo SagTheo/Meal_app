@@ -4,6 +4,7 @@ const express = require('express')
 const mysql = require('mysql2')
 const cors = require('cors')
 const bodyParser = require('body-parser')
+const { response } = require('express')
 
 
 const app = express()
@@ -96,9 +97,46 @@ db.connect(function(err) {
     })
 
     app.post('/saveMeal', (req, res) => {
-        req.body.mealFoods.forEach(food => {
-            console.log(food)
-        })
+        db.query(
+            'INSERT INTO meal_user(user_id) VALUES(?)',
+            [req.body.userId],
+            function(err, result, fields) {
+                if (err) throw err
+
+                db.query(
+                    'INSERT INTO meal_values(calories, protein, carbs, sugar, fat, saturatedFat, fiber, meal_id) VALUES(?, ?, ?, ?, ?, ?, ?, ?)',
+                    [
+                        req.body.calories,
+                        req.body.protein,
+                        req.body.carbs,
+                        req.body.sugar,
+                        req.body.fat,
+                        req.body.saturatedFat,
+                        req.body.fiber,
+                        result.insertId
+                    ],
+                    function(err, result, fields) {
+                        if (err) throw err
+
+                        req.body.mealFoods.forEach(food => {
+                            db.query(
+                                'INSERT INTO meal_foods(name, quantity, meal_id) VALUES(?, ?, ?)',
+                                [
+                                    food.name,
+                                    food.quantity,
+                                    result.insertId
+                                ],
+                                function(err, result, fields) {
+                                    if (err) throw err
+                                }
+                            )
+                        })
+
+                        res.json({response: 'OK'})
+                    }
+                )
+            }
+        )
     })
 
     app.listen(port, console.log(`Server started on port ${port}`))

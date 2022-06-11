@@ -7,6 +7,6 @@ CREATE TABLE meal_values (
     fat INT,
     saturatedFat INT,
     fiber INT,
-    user_id INT,
-    FOREIGN KEY (user_id) REFERENCES users (id)
+    meal_id INT,
+    FOREIGN KEY (meal_id) REFERENCES meal_user (id)
 );

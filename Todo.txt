@@ -16,14 +16,15 @@ Create functionality to compose a meal
             know that they have to enter at least one food
         -> ELse, Modal should be displayed to ask for confirmation
         -> If user cancels, modal should close and user will still be on /new-meal page
-        -> If user confirms, meal should be saved to database, and user redirected to /my-meals
+        -> If user confirms, meal should be saved to database, and user redirected to /my-meals | done
 
-        Create table in database to store meals created by user
-            --> 2 tables :
+        Create tables in database to store meals created by user | done
+            --> 3 tables :
+                -meal_user -> per tuple : meal id, foreign key that references user who created that meal (users)
                 -meal_foods -> per tuple : name of food, its quantity, foreign key 
-                               that references user
+                               that references corresponding meal (meal_user)
                 -meal_values -> per tuple : calories, protein, carbs, sugar, fat, 
-                                saturated fat, fiber, foreign key that references user
+                                saturated fat, fiber, foreign key that references corresponding meal (meal_user)
 
 ! Think about environment variables for database credentials ! | done
 

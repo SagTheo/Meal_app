@@ -107,7 +107,7 @@ const NewMeal = () => {
       })
         .then(res => res.json())
         .then(response => {
-          if (response === 'OK') {
+          if (response.response === 'OK') {
             navigate('/my-meals')
           } else {
             console.log('Couldn\'t save meal')
