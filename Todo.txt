@@ -10,12 +10,12 @@ Create functionality to compose a meal
         --> Need to find a way to allow user to change the quantity of each food individually,
             and details of the meal on the right of the screen should be updated accordingly | done
             
-    Issue#2--> Button at the bottom of the list that allows user to save the meal (which will 
+    Issue#2 --> Button at the bottom of the list that allows user to save the meal (which will 
         be found on the 'My meals' page)
         -> If no food entered for the meal, error message should appear to let user 
-            know that they have to enter at least one food
-        -> ELse, Modal should be displayed to ask for confirmation
-        -> If user cancels, modal should close and user will still be on /new-meal page
+            know that they have to enter at least one food | done
+        -> ELse, Modal should be displayed to ask for confirmation | done
+        -> If user cancels, modal should close and user will still be on /new-meal page | done
         -> If user confirms, meal should be saved to database, and user redirected to /my-meals | done
 
         Create tables in database to store meals created by user | done
@@ -25,6 +25,8 @@ Create functionality to compose a meal
                                that references corresponding meal (meal_user)
                 -meal_values -> per tuple : calories, protein, carbs, sugar, fat, 
                                 saturated fat, fiber, foreign key that references corresponding meal (meal_user)
+
+    Issue#3 --> when MyMeals loads, user's meals should be displayed on the page (if there are any)
 
 ! Think about environment variables for database credentials ! | done
 

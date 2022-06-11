@@ -18,6 +18,7 @@ const NewMeal = () => {
     const [fat, setFat] = useState(0)
     const [saturatedFat, setSaturatedFat] = useState(0)
     const [fiber, setFiber] = useState(0)
+    const [saveMealErr, setSaveMealErr] = useState(null)
 
     // For the modal
     const [show, setShow] = useState(false)
@@ -89,6 +90,15 @@ const NewMeal = () => {
       })
     }
 
+    const checkList = () => {
+      if (meal.length > 0) {
+        setSaveMealErr(null)
+        setShow(true)
+      } else {
+        setSaveMealErr('You must add at least one food to your meal')
+      }
+    }
+
     const saveMeal = () => {
       fetch('http://localhost:3001/saveMeal', {
         method: "POST",
@@ -143,6 +153,7 @@ const NewMeal = () => {
               nutritional values for that meal.
               Once you are happy with your meal, click on Save meal
             </p>
+            {saveMealErr && <p className='bg-danger rounded p-1 text-center text-white'>{saveMealErr}</p>}
             {
               meal.length > 0 ?
                   meal.map(item => {
@@ -172,8 +183,8 @@ const NewMeal = () => {
                 :
                 null
             }
-            {/* Saves meal composed by user to database */}
-            <Button className='mt-1' onClick={() => setShow(true)}>
+            {/* Checks if foods have been added to meal list */}
+            <Button className='mt-1' onClick={() => checkList()}>
               Save meal
             </Button>
             {/* Updates the nutritional values for the meal depending on quantity entered 
@@ -239,6 +250,7 @@ const NewMeal = () => {
             <Button variant="secondary" onClick={() => setShow(false)}>
               No
             </Button>
+            {/* Saves meal composed by user to database */}
             <Button variant="primary" onClick={() => saveMeal()}>Yes</Button>
           </Modal.Footer>
         </Modal>
