@@ -103,6 +103,8 @@ db.connect(function(err) {
             function(err, result, fields) {
                 if (err) throw err
 
+                const mealId = result.insertId
+
                 db.query(
                     'INSERT INTO meal_values(calories, protein, carbs, sugar, fat, saturatedFat, fiber, meal_id) VALUES(?, ?, ?, ?, ?, ?, ?, ?)',
                     [
@@ -113,7 +115,7 @@ db.connect(function(err) {
                         req.body.fat,
                         req.body.saturatedFat,
                         req.body.fiber,
-                        result.insertId
+                        mealId
                     ],
                     function(err, result, fields) {
                         if (err) throw err
@@ -124,7 +126,7 @@ db.connect(function(err) {
                                 [
                                     food.name,
                                     food.quantity,
-                                    result.insertId
+                                    mealId
                                 ],
                                 function(err, result, fields) {
                                     if (err) throw err
@@ -135,6 +137,21 @@ db.connect(function(err) {
                         res.json({response: 'OK'})
                     }
                 )
+            }
+        )
+    })
+
+
+    app.get('/getMeals/:token', (req, res) => {
+        const token = req.params.token
+
+        db.query(
+            'SELECT id FROM meal_user WHERE user_id=?',
+            [token],
+            function(err, result, fields) {
+                if (err) throw err
+
+                res.json({response: result})
             }
         )
     })
