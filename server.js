@@ -146,7 +146,7 @@ db.connect(function(err) {
         const token = req.params.token
 
         db.query(
-            'SELECT id FROM meal_user WHERE user_id=?',
+            'SELECT * FROM meal_user JOIN meal_foods ON meal_user.id=meal_foods.meal_id JOIN meal_values ON meal_user.id=meal_values.meal_id WHERE user_id=?',
             [token],
             function(err, result, fields) {
                 if (err) throw err
