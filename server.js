@@ -4,7 +4,6 @@ const express = require('express')
 const mysql = require('mysql2')
 const cors = require('cors')
 const bodyParser = require('body-parser')
-const { response } = require('express')
 
 
 const app = express()
@@ -30,6 +29,7 @@ const db = mysql.createConnection({
 db.connect(function(err) {
     if (err) throw err
 
+    // Quick search
     app.get('/', (req, res) => {
         db.query('SELECT *  FROM foods LIMIT 5', function(err, result, fields) {
             if (err) throw err
@@ -39,6 +39,7 @@ db.connect(function(err) {
         
     })
     
+    // Food search
     app.get('/:food', (req, res) => {
         const food = req.params.food
         
@@ -50,6 +51,7 @@ db.connect(function(err) {
         })
     })
 
+    // Sign up
     app.post('/signup', (req, res) => {
         db.query(
             "INSERT INTO users(email, password) VALUES(?, ?)", 
@@ -62,6 +64,7 @@ db.connect(function(err) {
         )
     }) 
 
+    // To check if user is in the database or not
     app.get('/checkUser/:token', (req, res) => {
         const token = req.params.token
 
@@ -80,6 +83,7 @@ db.connect(function(err) {
         )
     })
 
+    // To log user in
     app.post('/login', (req, res) => {
         db.query(
             'SELECT id FROM users WHERE email=? AND password=?',
@@ -96,6 +100,7 @@ db.connect(function(err) {
         )
     })
 
+    // To save a meal with its nutritional values in the database
     app.post('/saveMeal', (req, res) => {
         db.query(
             'INSERT INTO meal_user(user_id) VALUES(?)',
@@ -141,7 +146,7 @@ db.connect(function(err) {
         )
     })
 
-
+    // To retrieve all the meals and their respective nutritional values for a given user
     app.get('/getMeals/:token', (req, res) => {
         const token = req.params.token
 
@@ -151,7 +156,61 @@ db.connect(function(err) {
             function(err, result, fields) {
                 if (err) throw err
 
-                res.json({response: result})
+                const mealIds = []
+                const meals = []
+                const data = []
+
+                // Retrieves each meal_id and puts them in an array
+                result.forEach(item => {
+                    const mealId = item.meal_id
+
+                    if (!mealIds.includes(mealId)) {
+                        mealIds.push(mealId)
+                    }
+                })
+
+                // Groups items of 'result' array by meal_id 
+                mealIds.forEach(id => {
+                    let counter = 1
+                    let currentMeal = {}
+
+                    result.forEach(item => {
+                        if (item.meal_id === id) {
+                            currentMeal[counter] = item
+                            counter++
+                        }
+                    })
+
+                    meals.push(currentMeal)
+                })
+
+                // Sorts out any redundancy -> final data that will be sent to frontend 
+                meals.forEach(meal => {
+                    let currentMeal = {}
+                    let foods = []
+
+                    currentMeal['values'] = [
+                        meal[1].calories,
+                        meal[1].protein,
+                        meal[1].carbs,
+                        meal[1].sugar,
+                        meal[1].fat,
+                        meal[1].saturatedFat,
+                        meal[1].fiber 
+                    ]
+
+                    for (let item in meal) {
+                        const {name, quantity} = item
+
+                        foods.push({name, quantity}) 
+                    }
+
+                    currentMeal['foods'] = foods
+
+                    data.push(currentMeal)
+                })
+
+                res.json({response: data})
             }
         )
     })
