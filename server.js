@@ -200,9 +200,7 @@ db.connect(function(err) {
                     ]
 
                     for (let item in meal) {
-                        const {name, quantity} = item
-
-                        foods.push({name, quantity}) 
+                        foods.push({'name': meal[item].name, 'quantity': meal[item].quantity}) 
                     }
 
                     currentMeal['foods'] = foods
