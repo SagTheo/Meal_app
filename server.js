@@ -189,6 +189,8 @@ db.connect(function(err) {
                     let currentMeal = {}
                     let foods = []
 
+                    currentMeal['key'] = meal[1].meal_id
+
                     currentMeal['values'] = [
                         meal[1].calories,
                         meal[1].protein,

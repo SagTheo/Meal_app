@@ -26,7 +26,9 @@ Create functionality to compose a meal
                 -meal_values -> per tuple : calories, protein, carbs, sugar, fat, 
                                 saturated fat, fiber, foreign key that references corresponding meal (meal_user)
 
-    Issue#3 --> when MyMeals loads, user's meals should be displayed on the page (if there are any)
+    Issue#3 --> when MyMeals loads, user's meals should be displayed on the page (if there are any) | done
+
+    Isuue#4 --> Possibility for user to remove meal from MyMeals
 
 ! Think about environment variables for database credentials ! | done
 

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar'
+import styles from '../css/MyMeals.module.css'
 
 const MyMeals = () => {
   const userToken = localStorage.getItem('userToken')
 
-  const [mealsToDisplay, setMealsToDisplay] = useState()
+  const [mealsToDisplay, setMealsToDisplay] = useState([])
 
   useEffect(() => {
     fetch(`http://localhost:3001/getMeals/${userToken}`)
@@ -18,35 +19,51 @@ const MyMeals = () => {
   return (
     <div>
         <Navbar />
-        Here are your meals
-        {
-          mealsToDisplay ?
-          mealsToDisplay.map(meal => {
-            return (
-              <div>
-                {
-                  meal.foods.map(food => {
-                    return (
-                      <p>{food.name} {food.quantity}</p>
-                    )
-                  })
-                }
-
-                <ul>
-                  <li>Calories: {meal.values[0]}</li>
-                  <li>Protein: {meal.values[1]}</li>
-                  <li>Carbs: {meal.values[2]}</li>
-                  <li>Sugar: {meal.values[3]}</li>
-                  <li>Fat: {meal.values[4]}</li>
-                  <li>Saturated fat: {meal.values[5]}</li>
-                  <li>Fiber: {meal.values[6]}</li>
-                </ul>
-              </div>
-            )
-          })
-          :
-          null
-        }
+        <h1 className={styles.h1}>Here are your meals</h1>
+        <div className={styles.meals}>
+          {
+            mealsToDisplay.length > 0 ?
+            mealsToDisplay.map(meal => {
+              return (
+                <div key={meal.key} className={styles.meal}>
+                  <table className={styles.table}>
+                    <thead>
+                      <tr>
+                        <th className={styles.th}>Ingredient</th>
+                        <th className={styles.th}>Quantity</th>
+                      </tr> 
+                    </thead>
+                    <tbody>
+                      {
+                        meal.foods.map(food => {
+                          return (
+                            <tr>
+                              <td className={styles.td}>{food.name}</td>
+                              <td className={styles.td}>{food.quantity} grams</td> 
+                            </tr>
+                          )
+                        })
+                      }
+                    </tbody>
+                  </table>
+                  
+                  <p className={styles.p}>Nutritional values:</p>
+                  <ul className={styles.ul}>
+                    <li><span className={styles.span}>Calories:</span> {meal.values[0]} kcal</li>
+                    <li><span className={styles.span}>Protein:</span> {meal.values[1]} grams</li>
+                    <li><span className={styles.span}>Carbs:</span> {meal.values[2]} grams</li>
+                    <li><span className={styles.span}>Sugar:</span> {meal.values[3]} grams</li>
+                    <li><span className={styles.span}>Fat:</span> {meal.values[4]} grams</li>
+                    <li><span className={styles.span}>Saturated fat:</span> {meal.values[5]} grams</li>
+                    <li><span className={styles.span}>Fiber:</span> {meal.values[6]} grams</li>
+                  </ul>
+                </div>
+              )
+            })
+            :
+            <p className={styles.noMeals}>You have no meals yet</p>
+          }
+        </div>
     </div>
   )
 }
