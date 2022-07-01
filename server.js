@@ -4,6 +4,7 @@ const express = require('express')
 const mysql = require('mysql2')
 const cors = require('cors')
 const bodyParser = require('body-parser')
+const bcrypt = require('bcrypt')
 
 
 const app = express()
@@ -52,16 +53,26 @@ db.connect(function(err) {
     })
 
     // Sign up
-    app.post('/signup', (req, res) => {
-        db.query(
-            "INSERT INTO users(email, password) VALUES(?, ?)", 
-            [req.body.email, req.body.password],
-            function(err, result) {
-                if (err) throw err
+    app.post('/signup', async (req, res) => {
+        try {
+            const salt = await bcrypt.genSalt()
+            const hashedPassword = await bcrypt.hash(req.body.password, salt)
 
-                res.json({token: result.insertId})
-            }
-        )
+            db.query(
+                "INSERT INTO users(email, password) VALUES(?, ?)", 
+                [req.body.email, hashedPassword],
+                function(err, result) {
+                    if (err) throw err
+    
+                    res.json({token: result.insertId})
+                }
+            )
+        } catch {
+            // In case something goes wrong with the password hashing
+            res.status(500).send()
+        }
+
+        
     }) 
 
     // To check if user is in the database or not
@@ -86,16 +97,28 @@ db.connect(function(err) {
     // To log user in
     app.post('/login', (req, res) => {
         db.query(
-            'SELECT id FROM users WHERE email=? AND password=?',
-            [req.body.email, req.body.password],
-            function(err, result, fields) {
+            'SELECT id, password FROM users WHERE email=?',
+            [req.body.email],
+            async function(err, result, fields) {
                 if (err) throw err
 
                 if (result.length === 0) {
+                    // If nothing corresponds to the email given to the query
                     res.json({response: null})
                 } else {
-                    res.json({response: result[0]})
-                }
+                    try {
+                        if (await bcrypt.compare(req.body.password, result[0].password)) {
+                            res.json({response: result[0].id})  
+                        } else {
+                            // If the password given to bcrypt.compare() doesn't match the 
+                            // password stored in the database
+                            res.json({response: null})
+                        }
+                    } catch {
+                        // In case something goes wrong with the password check
+                        res.status(500).send()
+                    }
+                }  
             }
         )
     })

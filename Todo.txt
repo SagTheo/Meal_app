@@ -28,7 +28,7 @@ Create functionality to compose a meal
 
     Issue#3 --> when MyMeals loads, user's meals should be displayed on the page (if there are any) | done
 
-    Issue#4 --> Possibility for user to remove meal from MyMeals
+    Issue#4 --> Possibility for user to remove meal from MyMeals | done
                 -> alter tables meal_foods and meal_values to add ON DELETE CASCADE 
                    to the foreign key (this way, if row from meal_user is deleted, 
                    corresponding rows in meal_foods and meal_values will be deleted as well)
@@ -37,4 +37,4 @@ Create functionality to compose a meal
 
 Work on FoodSearchPublic and UserDashboard components -> redundancy that could possibly be avoided | done
 
-! Think about hashing password when entered into database !
+! Think about hashing password when entered into database ! | done
