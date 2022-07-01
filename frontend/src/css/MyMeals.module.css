@@ -43,3 +43,11 @@
 .noMeals {
     margin: auto;
 }
+
+.removeMeal {
+    width: 100%;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}

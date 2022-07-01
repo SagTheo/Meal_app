@@ -215,6 +215,21 @@ db.connect(function(err) {
         )
     })
 
+    // To remove info for a given meal from the database
+    app.delete('/removeMeal/:mealId', (req, res) => {
+        const mealId = req.params.mealId
+
+        db.query(
+            'DELETE FROM meal_user WHERE id=?',
+            [mealId],
+            function(err, result, fields) {
+                if (err) throw err
+
+                res.json({response: 'OK'})
+            }
+        )
+    })
+
     app.listen(port, console.log(`Server started on port ${port}`))
 }) 
 

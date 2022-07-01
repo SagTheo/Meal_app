@@ -7,6 +7,19 @@ const MyMeals = () => {
 
   const [mealsToDisplay, setMealsToDisplay] = useState([])
 
+  // To remove meal from MyMeals page. If request successful, document.location.reload()
+  // will refresh the current URL which will trigger useEffect() and display user's meals
+  const removeMeal = (mealId) => {
+    fetch(`http://localhost:3001/removeMeal/${mealId}`, { method: 'DELETE' })
+      .then(res => res.json())
+      .then(response => {
+        if (response.response === 'OK') {
+          document.location.reload()
+        }
+      })
+      .catch(err => console.log(err))
+  }
+
   useEffect(() => {
     fetch(`http://localhost:3001/getMeals/${userToken}`)
       .then(res => res.json())
@@ -57,6 +70,14 @@ const MyMeals = () => {
                     <li><span className={styles.span}>Saturated fat:</span> {meal.values[5]} grams</li>
                     <li><span className={styles.span}>Fiber:</span> {meal.values[6]} grams</li>
                   </ul>
+
+                  <button 
+                    className={styles.removeMeal}
+                    type='button'
+                    onClick={() => removeMeal(meal.key)}
+                  >
+                    Remove meal
+                  </button>
                 </div>
               )
             })
