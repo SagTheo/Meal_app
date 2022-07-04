@@ -8,7 +8,7 @@ const Navbar = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        fetch(`http://localhost:3001/checkUser/${userToken}`)
+        fetch(`http://localhost:3001/auth/checkUser/${userToken}`)
             .then(res => res.json())
             .then(data => {
               if (data.response === null) {

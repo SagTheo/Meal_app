@@ -100,7 +100,7 @@ const NewMeal = () => {
     }
 
     const saveMeal = () => {
-      fetch('http://localhost:3001/saveMeal', {
+      fetch('http://localhost:3001/meals/saveMeal', {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
