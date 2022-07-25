@@ -1,11 +1,9 @@
-require('dotenv').config()
-
 const express = require('express')
-const mysql = require('mysql2')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const mealRoutes = require('./routes/meals')
 const authRoutes = require('./routes/auth')
+const db = require('./dbConnection')
 
 const app = express()
 
@@ -19,13 +17,6 @@ app.use(bodyParser.json())
 
 const port = process.env.PORT || 3001
 
-//Creates connection to database
-const db = mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: 'meal_app'
-})
 
 db.connect(function(err) {
     if (err) throw err

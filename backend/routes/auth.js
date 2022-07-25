@@ -1,18 +1,10 @@
-require('dotenv').config()
-
 const express = require('express')
 const bcrypt = require('bcrypt')
-const mysql = require('mysql2')
 const uuid = require('uuid')
+const db = require('../dbConnection')
 
 const router = express.Router()
 
-const db = mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: 'meal_app'
-})
 
 // Sign up
 router.post('/signup', async (req, res) => {
