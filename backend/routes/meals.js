@@ -15,8 +15,8 @@ const db = mysql.createConnection({
 // To save a meal with its nutritional values in the database
 router.post('/saveMeal', (req, res) => {
     db.query(
-        'INSERT INTO meal_user(user_id) VALUES(?)',
-        [req.body.userId],
+        'INSERT INTO meal_user(user_id) VALUES(UUID_TO_BIN(?))',
+        [JSON.parse(req.body.userId)],
         function(err, result, fields) {
             if (err) throw err
 
@@ -63,8 +63,8 @@ router.get('/getMeals/:token', (req, res) => {
     const token = req.params.token
 
     db.query(
-        'SELECT * FROM meal_user JOIN meal_foods ON meal_user.id=meal_foods.meal_id JOIN meal_values ON meal_user.id=meal_values.meal_id WHERE user_id=?',
-        [token],
+        'SELECT * FROM meal_user JOIN meal_foods ON meal_user.id=meal_foods.meal_id JOIN meal_values ON meal_user.id=meal_values.meal_id WHERE user_id=UUID_TO_BIN(?)',
+        [JSON.parse(token)],
         function(err, result, fields) {
             if (err) throw err
 

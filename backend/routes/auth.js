@@ -3,6 +3,7 @@ require('dotenv').config()
 const express = require('express')
 const bcrypt = require('bcrypt')
 const mysql = require('mysql2')
+const uuid = require('uuid')
 
 const router = express.Router()
 
@@ -18,14 +19,15 @@ router.post('/signup', async (req, res) => {
     try {
         const salt = await bcrypt.genSalt()
         const hashedPassword = await bcrypt.hash(req.body.password, salt)
+        const userId = uuid.v4()
 
-        db.query(
-            "INSERT INTO users(email, password) VALUES(?, ?)", 
-            [req.body.email, hashedPassword],
+        db.query( 
+            "INSERT INTO users(id, email, password) VALUES(UUID_TO_BIN(?), ?, ?)",
+            [userId, req.body.email, hashedPassword],
             function(err, result) {
                 if (err) throw err
 
-                res.json({token: result.insertId})
+                res.json({token: userId})
             }
         )
     } catch {
@@ -41,8 +43,8 @@ router.get('/checkUser/:token', (req, res) => {
     const token = req.params.token
 
     db.query(
-        "SELECT email FROM users WHERE id=?",
-        [token],
+        "SELECT email FROM users WHERE id=UUID_TO_BIN(?)",
+        [JSON.parse(token)],
         function(err, result, fields) {
             if (err) throw err
             
@@ -58,7 +60,7 @@ router.get('/checkUser/:token', (req, res) => {
 // To log user in
 router.post('/login', (req, res) => {
     db.query(
-        'SELECT id, password FROM users WHERE email=?',
+        'SELECT BIN_TO_UUID(id) id, password FROM users WHERE email=?',
         [req.body.email],
         async function(err, result, fields) {
             if (err) throw err

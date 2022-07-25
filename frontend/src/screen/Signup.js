@@ -70,8 +70,8 @@ const Signup = () => {
         })
         .then(res => res.json())
         .then(data => {
-           localStorage.setItem('userToken', JSON.stringify(data.token))
-           navigate('/')  
+            localStorage.setItem('userToken', JSON.stringify(data.token))
+            navigate('/')  
         })
         .catch(err => console.log(err)) 
     }

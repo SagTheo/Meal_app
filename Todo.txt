@@ -38,3 +38,5 @@ Create functionality to compose a meal
 Work on FoodSearchPublic and UserDashboard components -> redundancy that could possibly be avoided | done
 
 ! Think about hashing password when entered into database ! | done
+
+! Think about having a unique identifier system rather than an auto-increment system for the users table -> security concern ! | done
